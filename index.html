@@ -14,6 +14,7 @@
     <script type="text/javascript">
         const itemListURL = "https://raw.githubusercontent.com/sgtandrews/sgtandrews-list/master/StoreItems.json";
         const eventListURL = "https://raw.githubusercontent.com/sgtandrews/sgtandrews-list/master/StoreEvents.json";
+        const commandListURL = "https://raw.githubusercontent.com/sgtandrews/sgtandrews-list/master/Commands.json";
     </script>
 </head>
 
@@ -270,6 +271,23 @@
             });
 
             eventList = new List('events', options, eventData);
+        });
+	    
+        let commandList = null;
+        $.getJSON(commandListURL, function(data) {
+            var options = {
+                valueNames: ['command', 'syntax', 'details'],
+                item: '<tr><td class="command" scope="row"></td><td class="price"></td><td class="details"></td></tr>'
+            };
+
+            var commandData = [];
+            $.each(data.incitems, function(index, value) {
+                if (value["price"] > 0) {
+                    eventData.push(value);
+                }
+            });
+
+            commandList = new List('events', options, eventData);
         });
 
         $("#item-price-min").keyup(function() {
